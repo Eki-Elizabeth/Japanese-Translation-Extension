@@ -1,4 +1,4 @@
-const article = document.querySelector("article");
+/*onst article = document.querySelector("article");
 
 // `document.querySelector` may return null if the selector doesn't match anything.
 if (article) {
@@ -20,3 +20,38 @@ if (article) {
 
   (date ?? heading).insertAdjacentElement("afterend", badge);
 }
+*/
+
+function translate(s){
+  fetch('http://127.0.0.1:5000/api/translate', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    mode: 'cors',
+    body: JSON.stringify({
+      'text': s //gai cheng dan yin hao
+    })
+  }).then(function(r) {
+    return r.json(); //先抄，回头再理解，嗯
+  }).then(function(data) {
+    console.log(data);
+  });
+}
+
+translate(null);
+
+document.addEventListener('mouseup', (e) => {
+  var s = getSelectedText();
+  //console.log(s+': '+Date.now());
+  translate(s);
+});
+
+function getSelectedText() {
+  if (window.getSelection) {
+    return window.getSelection().toString();
+  } else if (document.selection) {
+    return document.selection.createRange().text;
+  }
+}
+
