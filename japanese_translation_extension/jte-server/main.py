@@ -3,8 +3,10 @@
 import json
 from flask import Flask,request
 import boto3
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app, support_credentials=True)
 
 @app.route('/test')
 def test():
